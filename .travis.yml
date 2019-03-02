@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t czetsuya/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run czetsuya/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t czetsuya/multi-client ./client
+  - docker build -t czetsuya/multi-nginx ./nginx
+  - docker build -t czetsuya/multi-server ./server
+  - docker build -t czetsuya/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push czetsuya/multi-client
+  - docker push czetsuya/nginx
+  - docker push czetsuya/multi-server
+  - docker push czetsuya/multi-worker
