@@ -9,14 +9,14 @@ script:
   - docker run czetsuya/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t czetsuya/multi-client ./client
-  - docker build -t czetsuya/multi-nginx ./nginx
-  - docker build -t czetsuya/multi-server ./server
-  - docker build -t czetsuya/multi-worker ./worker
+  - docker build -t czetsuya/multi-docker-react-client ./client
+  - docker build -t czetsuya/multi-docker-react-nginx ./nginx
+  - docker build -t czetsuya/multi-docker-react-server ./server
+  - docker build -t czetsuya/multi-docker-react-worker ./worker
   # Login
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push
-  - docker push czetsuya/multi-client
-  - docker push czetsuya/nginx
-  - docker push czetsuya/multi-server
-  - docker push czetsuya/multi-worker
+  - docker push czetsuya/multi-docker-react-client
+  - docker push czetsuya/multi-docker-react-nginx
+  - docker push czetsuya/multi-docker-react-server
+  - docker push czetsuya/multi-docker-react-worker
