@@ -3,8 +3,36 @@
     "containerDefinitions": [
         {
             "name": "client",
-            "image": "czetsuya/multi-client",
-            "hostname": "client"
+            "image": "czetsuya/multi-docker-react-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "czetsuya/multi-docker-react-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "czetsuya/multi-docker-react-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "czetsuya/multi-docker-react-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "client", "server"
+            ]
         }
     ]
 }
