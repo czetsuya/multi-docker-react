@@ -13,7 +13,13 @@ after_success:
   - docker build -t czetsuya/multi-nginx ./nginx
   - docker build -t czetsuya/multi-server ./server
   - docker build -t czetsuya/multi-worker ./worker
+  - docker tag czetsuya/multi-client czetsuya/multi-client
+  - docker tag czetsuya/multi-nginx czetsuya/multi-nginx
+  - docker tag czetsuya/multi-server czetsuya/multi-server
+  - docker tag czetsuya/multi-worker czetsuya/multi-worker
+  # Login
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push
   - docker push czetsuya/multi-client
   - docker push czetsuya/nginx
   - docker push czetsuya/multi-server
