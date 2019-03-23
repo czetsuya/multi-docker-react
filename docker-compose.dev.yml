@@ -5,6 +5,7 @@ services:
   redis:
     image: 'redis:latest'
   nginx:
+    image: czetsuya/multi-docker-react-nginx:latest
     restart: always
     build:
       dockerfile: Dockerfile.dev
@@ -12,6 +13,7 @@ services:
     ports:
       - '3000:80'
   api:
+    image: czetsuya/multi-docker-react-server:latest
     build:
       dockerfile: Dockerfile.dev
       context: ./server
@@ -27,6 +29,7 @@ services:
       - PGPASSWORD=postgres_password
       - PGPORT=5432
   client:
+    image: czetsuya/multi-docker-react-client:latest
     build:
       dockerfile: Dockerfile.dev
       context: ./client
@@ -34,6 +37,7 @@ services:
       - /app/node_modules
       - ./client:/app
   worker:
+    image: czetsuya/multi-docker-react-worker:latest
     build:
       dockerfile: Dockerfile.dev
       context: ./worker
