@@ -9,17 +9,17 @@ script:
   - docker run czetsuya/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t czetsuya/multi-docker-react-client:latest ./client
-  - docker build -t czetsuya/multi-docker-react-nginx:latest ./nginx
-  - docker build -t czetsuya/multi-docker-react-server:latest ./server
-  - docker build -t czetsuya/multi-docker-react-worker:latest ./worker
+  - docker build -t czetsuya/multi-docker-react-client ./client
+  - docker build -t czetsuya/multi-docker-react-nginx ./nginx
+  - docker build -t czetsuya/multi-docker-react-server ./server
+  - docker build -t czetsuya/multi-docker-react-worker ./worker
   # Login
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push
-  - docker push czetsuya/multi-docker-react-client:latest
-  - docker push czetsuya/multi-docker-react-nginx:latest
-  - docker push czetsuya/multi-docker-react-server:latest
-  - docker push czetsuya/multi-docker-react-worker:latest
+  - docker push czetsuya/multi-docker-react-client
+  - docker push czetsuya/multi-docker-react-nginx
+  - docker push czetsuya/multi-docker-react-server
+  - docker push czetsuya/multi-docker-react-worker
 
 deploy:
   provider: elasticbeanstalk
